@@ -2,6 +2,7 @@
 
 const hostsInput =  document.querySelector("#hosts");
 const codeInput =  document.querySelector("#code");
+const codeArea =  document.querySelector("#code_area");
 const userScriptIDInput =  document.querySelector("#userScriptID");
 const lastErrorEl =  document.querySelector("#lastError");
 const lastResultEl =  document.querySelector("#lastResult");
@@ -30,6 +31,16 @@ const defaultUserScriptID = "user_script_01";
 hostsInput.value = defaultHosts;
 codeInput.value = defaultCode;
 userScriptIDInput.value = defaultUserScriptID;
+
+function editCode () {
+  if (!codeArea.getAttribute('data-show')) {
+    codeArea.setAttribute('style', 'display:block');
+    codeArea.setAttribute('data-show', 'true');
+  } else {
+    codeArea.setAttribute('style', 'display:none');
+    codeArea.removeAttribute('data-show');
+  }
+}
 
 async function loadLastSetValues() {
   const params = await browser.storage.local.get();
@@ -95,3 +106,4 @@ async function registerScript() {
 loadLastSetValues();
 
 document.querySelector("#register").addEventListener('click', registerScript);
+document.querySelector("#code_field").addEventListener('click',editCode );
